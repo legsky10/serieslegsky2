@@ -1,0 +1,57 @@
+/* ===============================
+   BORDE GIRATORIO PARA AUDIO PHONE
+================================ */
+
+/* CONTENEDOR DEL BORDE */
+.audio-phone-wrap {
+  position: relative;
+  width: 320px;
+  margin: auto;
+}
+
+/* CAPA DEL BORDE */
+.audio-phone-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 42px;
+  background-image: linear-gradient(
+    var(--rotate),
+    #5ddcff,
+    #3c67e3 43%,
+    #4e00c2
+  );
+  z-index: -2;
+  animation: spin 2.5s linear infinite;
+}
+
+/* CAPA BLUR */
+.audio-phone-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  border-radius: 60px;
+  background-image: linear-gradient(
+    var(--rotate),
+    #5ddcff,
+    #3c67e3 43%,
+    #4e00c2
+  );
+  z-index: -3;
+  filter: blur(35px);
+  opacity: 0.8;
+  animation: spin 2.5s linear infinite;
+}
+
+/* CONTROL DEL ÁNGULO */
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ANIMACIÓN */
+@keyframes spin {
+  0% { --rotate: 0deg; }
+  100% { --rotate: 360deg; }
+}
