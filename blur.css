@@ -1,57 +1,76 @@
-/* ===============================
-   BORDE GIRATORIO PARA AUDIO PHONE
-================================ */
+/* ==============================
+   BORDE ANIMADO PARA AUDIO-PHONE
+   ============================== */
 
-/* CONTENEDOR DEL BORDE */
-.audio-phone-wrap {
+/* CONTENEDOR DEL EFECTO */
+.box {
   position: relative;
-  width: 320px;
+  width: 320px;          /* igual al audio-phone */
   margin: auto;
 }
 
-/* CAPA DEL BORDE */
-.audio-phone-wrap::before {
+/* BORDE GIRATORIO */
+.box::before {
   content: "";
   position: absolute;
-  inset: -6px;
+  inset: 0;
+  border-radius: 46px;
+  background: repeating-conic-gradient(
+    from var(--a),
+    #ff6e48,
+    #00fff1,
+    #ff00aa,
+    #46fcb4,
+    #00fff1
+  );
+  animation: rotating 5s linear infinite;
+}
+
+/* BLUR EXTERNO */
+.box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 46px;
+  background: repeating-conic-gradient(
+    from var(--a),
+    #ff6e48,
+    #00fff1,
+    #ff00aa,
+    #46fcb4,
+    #00fff1
+  );
+  animation: rotating 5s linear infinite;
+  filter: blur(45px);
+  opacity: 0.75;
+}
+
+/* RECORTE INTERNO (CLAVE PARA QUE SEA BORDE) */
+.box > span {
+  position: absolute;
+  inset: 4px;
+  background: transparent;
   border-radius: 42px;
-  background-image: linear-gradient(
-    var(--rotate),
-    #5ddcff,
-    #3c67e3 43%,
-    #4e00c2
-  );
-  z-index: -2;
-  animation: spin 2.5s linear infinite;
+  z-index: 1;
 }
 
-/* CAPA BLUR */
-.audio-phone-wrap::after {
-  content: "";
-  position: absolute;
-  inset: -20px;
-  border-radius: 60px;
-  background-image: linear-gradient(
-    var(--rotate),
-    #5ddcff,
-    #3c67e3 43%,
-    #4e00c2
-  );
-  z-index: -3;
-  filter: blur(35px);
-  opacity: 0.8;
-  animation: spin 2.5s linear infinite;
+/* TU GADGET */
+.audio-phone {
+  position: relative;
+  z-index: 2;
 }
 
-/* CONTROL DEL ÁNGULO */
-@property --rotate {
+/* ==============================
+   ANIMACIÓN
+   ============================== */
+
+@property --a {
   syntax: "<angle>";
-  initial-value: 0deg;
   inherits: false;
+  initial-value: 0deg;
 }
 
-/* ANIMACIÓN */
-@keyframes spin {
-  0% { --rotate: 0deg; }
-  100% { --rotate: 360deg; }
+@keyframes rotating {
+  from { --a: 0deg; }
+  to   { --a: 360deg; }
 }
